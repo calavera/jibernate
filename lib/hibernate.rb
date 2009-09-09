@@ -1,15 +1,9 @@
 require 'java'
-require 'lib/antlr-2.7.6.jar'
-require 'lib/commons-collections-3.1.jar'
-require 'lib/dom4j-1.6.1.jar'
-require 'lib/javassist-3.9.0.GA.jar'
-require 'lib/jta-1.1.jar'
-require 'lib/slf4j-simple-1.5.8.jar'
-require 'lib/slf4j-api-1.5.8.jar'
-require 'lib/hibernate3.jar'
+require 'jruby/core_ext'
 require 'stringio'
-
-require 'dialects'
+require 'hibernate/jars'
+require 'hibernate/dialects'
+require 'hibernate/model'
 
 module Hibernate
   import org.hibernate.cfg.Configuration
@@ -45,12 +39,12 @@ module Hibernate
   def self.connection_password=(password)
     config.set_property "hibernate.connection.password", password
   end
-  
+
   class PropertyShim
     def initialize(config)
       @config = config
     end
-    
+
     def []=(key, value)
       key = ensure_hibernate_key(key)
       @config.set_property key, value
@@ -98,35 +92,7 @@ module Hibernate
     config.add_xml(File.read(mapping))
   end
 
-  module Model
-    TYPES = {
-      :string => java.lang.String,
-      :long => java.lang.Long,
-      :date => java.util.Date
-    }
-
-    def hibernate_sigs
-      @hibernate_sigs ||= {}
-    end
-
-    def hibernate_attr(attrs)
-      attrs.each do |name, type|
-        attr_accessor name
-        get_name = "get#{name.to_s.capitalize}"
-        set_name = "set#{name.to_s.capitalize}"
-
-        alias_method get_name.intern, name
-        add_method_signature get_name, [TYPES[type].java_class]
-        alias_method set_name.intern, :"#{name.to_s}="
-        add_method_signature set_name, [JVoid, TYPES[type].java_class]
-      end
-    end
-    
-    def hibernate!
-      become_java!
-
-#      Hibernate.mappings.
-#      Hibernate.add_mapping reified_class,
-    end
+  def self.add_xml(xml)
+    config.add_xml(xml)
   end
 end
