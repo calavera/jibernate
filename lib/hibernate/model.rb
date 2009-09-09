@@ -8,6 +8,11 @@ module Hibernate
       :date => java.util.Date
     }
 
+    def self.append_features(base)
+      super
+      base.extend self
+    end
+
     def hibernate_attr(attrs)
       @hibernate_attrs = attrs
       @hibernate_attrs.merge(:id => :long).each do |name, type|
@@ -53,7 +58,7 @@ module Hibernate
 </hibernate-mapping>
 }
       xml = template.result(binding)
-      puts xml
+#       puts xml
       xml
     end
   end

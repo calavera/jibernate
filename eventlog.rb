@@ -1,3 +1,4 @@
+$LOAD_PATH.unshift "lib"
 # Basic requires
 require 'rubygems'
 require 'jdbc/hsqldb'
@@ -14,7 +15,7 @@ Hibernate.connection_password = ""
 Hibernate.properties["hbm2ddl.auto"] = "update"
 
 class Event
-  extend Hibernate::Model
+  include Hibernate::Model
   hibernate_attr :title => :string, :created => :date
   hibernate!
 end

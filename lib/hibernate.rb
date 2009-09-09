@@ -1,5 +1,6 @@
 require 'java'
 require 'jruby/core_ext'
+$CLASSPATH << "lib"
 require 'stringio'
 require 'hibernate/jars'
 require 'hibernate/dialects'
