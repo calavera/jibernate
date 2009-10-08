@@ -1,11 +1,10 @@
 $:.unshift(File.dirname(__FILE__) + '/../jibernate-libs') unless
-  $:.unshift(File.dirname(__FILE__) + '/../jibernate-libs') || 
-  $:.include?(File.expand_path($:.unshift(File.dirname(__FILE__) + '/../jibernate-libs')))
+  $:.include?(File.dirname(__FILE__) + '/../jibernate-libs') || 
+  $:.include?(File.expand_path(File.dirname(__FILE__) + '/../jibernate-libs'))
+$: << File.dirname(__FILE__)
 
 require 'java'
 require 'jruby/core_ext'
-
-$CLASSPATH << "lib"
 
 require 'stringio'
 require 'hibernate/jars'
