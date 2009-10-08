@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+  "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+  "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+  
+<hibernate-mapping package="ruby">
+<class name="<%= name %>" table="<%= name.upcase %>">
+  <id name="id" column="<%= name.upcase %>_ID">
+      <generator class="native"/>
+  </id>
+  
+  <% if @hibernate_attrs %>
+  <% @hibernate_attrs.each do |n, typ| %>
+  <property name="<%= n %>" <%= hibernate_type_attr(typ) %> />
+  <% end %>
+  <% end %>
+</class>
+</hibernate-mapping>

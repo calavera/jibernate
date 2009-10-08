@@ -42,23 +42,9 @@ module Hibernate
     end
 
     def hibernate_mapping_xml
-      template = ERB.new %{<?xml version="1.0"?>
-<!DOCTYPE hibernate-mapping PUBLIC
-        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
-        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<hibernate-mapping package="ruby">
-    <class name="<%= name %>" table="<%= name.upcase %>">
-        <id name="id" column="<%= name.upcase %>_ID">
-            <generator class="native"/>
-        </id>
-        <% @hibernate_attrs.each do |n, typ| %>
-        <property name="<%= n %>" <%= hibernate_type_attr(typ) %> />
-        <% end %>
-    </class>
-</hibernate-mapping>
-}
+      template = ERB.new(IO.read(File.dirname(__FILE__) + '/hibernate_mapping.xml.erb'))
+
       xml = template.result(binding)
-#       puts xml
       xml
     end
   end
