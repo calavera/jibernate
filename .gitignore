@@ -1,2 +1,3 @@
 jibernate.*
 ruby
+lib/hibernate/hibernate_mapping.xml.erb.cache

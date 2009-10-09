@@ -4,17 +4,13 @@ class MockModel
   include Hibernate::Model
   hibernate_attr :title => :string, :created => :date
   hibernate!
-  
-  def name; self.class.name; end
 end
 
 describe "Hibernate::Model" do
   
-  it "creates the mapping file with attributes in several lines" do
-    
-    mock = MockModel.new
-    
-    xml = mock.hibernate_mapping_xml
+  it "creates the mapping file with attributes in several lines" do 
+    xml = MockModel.hibernate_mapping_xml
+
     xml.gsub(/\s{2,}/, '').should == %{<?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC
   "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
@@ -26,6 +22,8 @@ describe "Hibernate::Model" do
       <generator class="native"/>
   </id>
 
+  <property name="title"  />
+  <property name="created" type="timestamp" />
 </class>
 </hibernate-mapping>
 }.gsub(/\s{2,}/, '')

@@ -4,14 +4,14 @@
   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
   
 <hibernate-mapping package="ruby">
-<class name="<%= name %>" table="<%= name.upcase %>">
-  <id name="id" column="<%= name.upcase %>_ID">
+<class name="<%= @name %>" table="<%= @name.upcase %>">
+  <id name="id" column="<%= @name.upcase %>_ID">
       <generator class="native"/>
   </id>
   
   <% if @hibernate_attrs -%>
   <% @hibernate_attrs.each do |n, typ| -%>
-  <property name="<%= n %>" <%= hibernate_type_attr(typ) %> />
+  <property name="<%= n %>" <%= typ %> />
   <% end -%>
   <% end -%>
 </class>

@@ -1,4 +1,4 @@
-require 'erb'
+require 'erubis'
 
 module Hibernate
   module Model
@@ -42,10 +42,14 @@ module Hibernate
     end
 
     def hibernate_mapping_xml
-      template = ERB.new(IO.read(File.dirname(__FILE__) + '/hibernate_mapping.xml.erb'), 0, "-")
+      @mapping_xml ||= begin
+        template = Erubis::Eruby.load_file(File.dirname(__FILE__) + '/hibernate_mapping.xml.erb')
 
-      xml = template.result(Proc.new {self})
-      xml
+        @mapping_xml = template.evaluate({
+          :name => name,
+          :hibernate_attrs => Hash[@hibernate_attrs.map {|k, v| [k, hibernate_type_attr(v)]}]
+        })
+      end
     end
   end
 end
