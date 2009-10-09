@@ -14,5 +14,20 @@
   <property name="<%= n %>" <%= typ %> />
   <% end -%>
   <% end -%>
+
+  <% if @hibernate_has_many_attrs -%>
+  <% @hibernate_has_many_attrs.each do |name, type| -%>
+  <set name="<%= name %>">
+    <key column="<%= @name.upcase %>_ID"/>
+    <one-to-many class="<%= type %>"/>
+  </set>
+  <% end -%>
+  <% end -%>
+
+  <% if @hibernate_belongs_to_attrs -%>
+  <% @hibernate_belongs_to_attrs.each do |name, type| -%>
+  <many-to-one name="<%= name %>" class="<%= type %>" column="<%= name.upcase %>_ID"/>
+  <% end -%>
+  <% end -%>
 </class>
 </hibernate-mapping>
