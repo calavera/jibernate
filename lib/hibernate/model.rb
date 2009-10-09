@@ -45,7 +45,7 @@ module Hibernate
       @mapping_xml ||= begin
         template = Erubis::Eruby.load_file(File.dirname(__FILE__) + '/hibernate_mapping.xml.erb')
 
-        @mapping_xml = template.evaluate({
+        template.evaluate({
           :name => name,
           :hibernate_attrs => Hash[@hibernate_attrs.map {|k, v| [k, hibernate_type_attr(v)]}]
         })
