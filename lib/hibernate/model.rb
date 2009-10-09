@@ -42,9 +42,9 @@ module Hibernate
     end
 
     def hibernate_mapping_xml
-      template = ERB.new(IO.read(File.dirname(__FILE__) + '/hibernate_mapping.xml.erb'))
+      template = ERB.new(IO.read(File.dirname(__FILE__) + '/hibernate_mapping.xml.erb'), 0, "-")
 
-      xml = template.result(binding)
+      xml = template.result(Proc.new {self})
       xml
     end
   end

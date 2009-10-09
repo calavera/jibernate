@@ -15,20 +15,19 @@ describe "Hibernate::Model" do
     mock = MockModel.new
     
     xml = mock.hibernate_mapping_xml
-    xml.should == %{<?xml version="1.0"?>
+    xml.gsub(/\s{2,}/, '').should == %{<?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC
   "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping package="ruby">
-<class name="MockModel" table="MOCK_MODEL">
-  <id name="id" column="MOCK_MODEL_ID">
+<class name="MockModel" table="MOCKMODEL">
+  <id name="id" column="MOCKMODEL_ID">
       <generator class="native"/>
   </id>
-  
-  <property name="title" />
-  <property name="created" type="timestamp" />
+
 </class>
-</hibernate-mapping>}
+</hibernate-mapping>
+}.gsub(/\s{2,}/, '')
   end
 end

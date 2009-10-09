@@ -9,10 +9,10 @@
       <generator class="native"/>
   </id>
   
-  <% if @hibernate_attrs %>
-  <% @hibernate_attrs.each do |n, typ| %>
+  <% if @hibernate_attrs -%>
+  <% @hibernate_attrs.each do |n, typ| -%>
   <property name="<%= n %>" <%= hibernate_type_attr(typ) %> />
-  <% end %>
-  <% end %>
+  <% end -%>
+  <% end -%>
 </class>
 </hibernate-mapping>
